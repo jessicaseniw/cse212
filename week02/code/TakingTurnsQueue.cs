@@ -37,21 +37,47 @@ public class TakingTurnsQueue
         {
             throw new InvalidOperationException("No one in the queue.");
         }
-        else
-        {
-            Person person = _people.Dequeue();
-            if (person.Turns > 1)
-            {
-                person.Turns -= 1;
-                _people.Enqueue(person);
-            }
 
-            return person;
+        // ======== How it was before ======== // (by Jéssica Seniw)
+        // Person person = _people.Dequeue();
+        // if (person.Turns > 1)
+        // {
+        //     person.Turns -= 1;
+        //     _people.Enqueue(person);
+        // }
+        // return person;
+        //
+        // Problems with the old code:
+        // 1. People with Turns = 1 were not re-enqueued, losing their last turn.
+        // 2. People with Turns <= 0 (infinite turns) were not re-enqueued.
+        // 3. Turns were only decremented if > 1, which is not the correct behavior.
+
+        // ======== Corrected ======== //  (by Jéssica Seniw)
+        Person person = _people.Dequeue();
+
+        // Decrease turns only if the person has finite turns (> 0)
+        if (person.Turns > 0)
+        {
+            person.Turns -= 1;
         }
+
+        // Re-enqueue if they still have turns left OR if they have infinite turns (<= 0)
+        if (person.Turns > 0 || person.Turns <= 0)
+        {
+            _people.Enqueue(person);
+        }
+
+        return person;
     }
 
     public override string ToString()
     {
         return _people.ToString();
     }
+
+    // ======== Note about previous error ======== //  (by Jéssica Seniw)
+    // The original code had a line 'public class TakingTurnsQueue' around line 34.
+    // This was:
+    // 1. A duplicate class declaration (unnecessary and invalid).
+    // Correction: Removed the duplicate class declaration.
 }
