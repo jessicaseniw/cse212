@@ -1,4 +1,4 @@
-﻿// Test Results:
+﻿// ======== Test Results: ======== //  (by Jéssica Seniw)
 // Enqueue adds to the back - PASSED
 // Dequeue returns highest priority item - PASSED
 // Dequeue returns first item on tie (FIFO) - PASSED
@@ -28,15 +28,15 @@ public class PriorityQueue
             throw new InvalidOperationException("The queue is empty.");
         }
 
-        // Find the index of the item with the highest priority to remove
+        // ======== Find the index of the item with the highest priority to remove ======== //  (by Jéssica Seniw)
         var highPriorityIndex = 0;
 
-        // Before: for (int index = 1; index < _queue.Count - 1; index++)
+        // ======== Before: for (int index = 1; index < _queue.Count - 1; index++) ======== //  (by Jéssica Seniw)
         // Issue: the last element of the list was ignored, potentially skipping the highest priority item
         // Fixed:
         for (int index = 1; index < _queue.Count; index++)
         {
-            // Before: if (_queue[index].Priority >= _queue[highPriorityIndex].Priority)
+            // ======== Before: if (_queue[index].Priority >= _queue[highPriorityIndex].Priority) ======== //  (by Jéssica Seniw)
             // Issue: using >= caused the last item to be chosen in case of a tie (FIFO broken)
             // Fixed: use > to maintain FIFO for items with the same highest priority
             if (_queue[index].Priority > _queue[highPriorityIndex].Priority)
@@ -46,7 +46,7 @@ public class PriorityQueue
         // Remove and return the item with the highest priority
         var value = _queue[highPriorityIndex].Value;
 
-        // Before: the item was not removed from the queue
+        // ======== Before: the item was not removed from the queue ======== //  (by Jéssica Seniw)
         // Fixed:
         _queue.RemoveAt(highPriorityIndex);
 
