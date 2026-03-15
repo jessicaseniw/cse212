@@ -38,7 +38,7 @@ public class TakingTurnsQueue
             throw new InvalidOperationException("No one in the queue.");
         }
 
-        // ======== How it was before ======== // (by Jéssica Seniw)
+        // ======== How it was before ======== // (original version)
         // Person person = _people.Dequeue();
         // if (person.Turns > 1)
         // {
@@ -52,19 +52,26 @@ public class TakingTurnsQueue
         // 2. People with Turns <= 0 (infinite turns) were not re-enqueued.
         // 3. Turns were only decremented if > 1, which is not the correct behavior.
 
-        // ======== Corrected ======== //  (by Jéssica Seniw)
+        // ======== Corrected ======== // (passes all tests)
         Person person = _people.Dequeue();
 
-        // Decrease turns only if the person has finite turns (> 0)
-        if (person.Turns > 0)
+        // If the person has infinite turns (0 or negative), always return them to the queue
+        if (person.Turns <= 0)
         {
-            person.Turns -= 1;
-        }
-
-        // Re-enqueue if they still have turns left OR if they have infinite turns (<= 0)
-        if (person.Turns > 0 || person.Turns <= 0)
-        {
+            // Infinite turns: always re-enqueue
             _people.Enqueue(person);
+        }
+        else
+        {
+            // Finite turns: decrement turns
+            person.Turns -= 1;
+
+            // Re-enqueue only if they still have turns left
+            if (person.Turns > 0)
+            {
+                _people.Enqueue(person);
+            }
+            // If turns == 0, do NOT re-enqueue (person is done)
         }
 
         return person;
