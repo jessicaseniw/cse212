@@ -8,10 +8,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 public class TakingTurnsQueueTests
 {
     [TestMethod]
+    // ======== ANSWER ======== // (by Jéssica Seniw)
     // Scenario: Create a queue with the following people and turns: Bob (2), Tim (5), Sue (3) and
     // run until the queue is empty
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
-    // Defect(s) Found: 
+    // Defect(s) Found:
+    // 1. The first person returned was "Sue" instead of "Bob".
+    // 2. The order of people is incorrect when turns are decremented.
+    // 3. Finite-turn people are not re-enqueued correctly.
+    // 4. Overall sequence of returned people does not match the expected result.
     public void TestTakingTurnsQueue_FiniteRepetition()
     {
         var bob = new Person("Bob", 2);
@@ -40,10 +45,15 @@ public class TakingTurnsQueueTests
     }
 
     [TestMethod]
+    // ======== ANSWER ======== // (by Jéssica Seniw)
     // Scenario: Create a queue with the following people and turns: Bob (2), Tim (5), Sue (3)
     // After running 5 times, add George with 3 turns.  Run until the queue is empty.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, George, Sue, Tim, George, Tim, George
-    // Defect(s) Found: 
+    // Defect(s) Found:
+    // 1. The first person returned after running 5 turns was "Sue" instead of "Bob".
+    // 2. The queue does not maintain correct FIFO order when a new person is added midway.
+    // 3. Finite turns are not correctly decremented and re-enqueued in proper order.
+    // 4. Overall sequence of returned people does not match the expected result.
     public void TestTakingTurnsQueue_AddPlayerMidway()
     {
         var bob = new Person("Bob", 2);
@@ -82,10 +92,15 @@ public class TakingTurnsQueueTests
     }
 
     [TestMethod]
+    // ======== ANSWER ======== // (by Jéssica Seniw)
     // Scenario: Create a queue with the following people and turns: Bob (2), Tim (Forever), Sue (3)
     // Run 10 times.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
-    // Defect(s) Found: 
+    // Defect(s) Found:
+    // 1. The first person returned was "Sue" instead of "Bob".
+    // 2. People with infinite turns (0) are not re-enqueued correctly in FIFO order.
+    // 3. Sequence of returned people does not match the expected sequence for finite and infinite turns.
+    // 4. Turns for infinite-turn people are not preserved properly in execution order.
     public void TestTakingTurnsQueue_ForeverZero()
     {
         var timTurns = 0;
@@ -113,10 +128,15 @@ public class TakingTurnsQueueTests
     }
 
     [TestMethod]
+    // ======== ANSWER ======== // (by Jéssica Seniw)
     // Scenario: Create a queue with the following people and turns: Tim (Forever), Sue (3)
     // Run 10 times.
     // Expected Result: Tim, Sue, Tim, Sue, Tim, Sue, Tim, Tim, Tim, Tim
-    // Defect(s) Found: 
+    // Defect(s) Found:
+    // 1. The first person returned was "Sue" instead of "Tim".
+    // 2. People with infinite turns (negative) are not re-enqueued correctly in FIFO order.
+    // 3. Sequence of returned people does not match the expected sequence for finite and infinite turns.
+    // 4. Turns for infinite-turn people are not preserved properly in execution order.
     public void TestTakingTurnsQueue_ForeverNegative()
     {
         var timTurns = -3;
@@ -141,9 +161,11 @@ public class TakingTurnsQueueTests
     }
 
     [TestMethod]
+    // ======== ANSWER ======== // (by Jéssica Seniw)
     // Scenario: Try to get the next person from an empty queue
     // Expected Result: Exception should be thrown with appropriate error message.
-    // Defect(s) Found: 
+    // Defect(s) Found:
+    // No defects found; test passed as expected. Queue correctly throws exception when empty.
     public void TestTakingTurnsQueue_Empty()
     {
         var players = new TakingTurnsQueue();
