@@ -22,7 +22,35 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+
+        // ======== CODE ======== //  (by Jéssica Seniw)
+
+        // BEFORE: return [];
+
+        var seen = new HashSet<string>();
+        var result = new List<string>();
+
+        foreach (var word in words)
+        {
+            // Ignore cases like "aa"
+            if (word[0] == word[1])
+                continue;
+
+            // Create reversed word
+            var reversed = $"{word[1]}{word[0]}";
+
+            // Check if reversed word was already seen
+            if (seen.Contains(reversed))
+            {
+                result.Add($"{word} & {reversed}");
+            }
+
+            // Add current word to set
+            seen.Add(word);
+        }
+
+        // AFTER: return result.ToArray();
+        return result.ToArray();
     }
 
     /// <summary>
@@ -42,7 +70,27 @@ public static class SetsAndMaps
         foreach (var line in File.ReadLines(filename))
         {
             var fields = line.Split(",");
+
             // TODO Problem 2 - ADD YOUR CODE HERE
+
+            // ======== CODE ======== //  (by Jéssica Seniw)
+
+            // BEFORE: (no logic to process degrees)
+
+            // Get the degree from column 4 (index 3)
+            var degree = fields[3].Trim();
+
+            // Count occurrences
+            if (degrees.ContainsKey(degree))
+            {
+                degrees[degree]++;
+            }
+            else
+            {
+                degrees[degree] = 1;
+            }
+
+            // AFTER: dictionary updated with degree counts
         }
 
         return degrees;
