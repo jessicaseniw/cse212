@@ -167,6 +167,48 @@ public class LinkedList : IEnumerable<int>
     public void Remove(int value)
     {
         // TODO Problem 3
+        // ======== CODE ======== //  (by Jéssica Seniw)
+        // Before:
+        // - Remove was not implemented.
+        // - The linked list could not delete a specific value.
+        // - No traversal or node removal logic existed.
+
+        // Fix:
+        // - Traversed the list starting from the head to find the value.
+        // - Reused RemoveHead and RemoveTail when applicable.
+        // - Reconnected links to remove a node from the middle of the list.
+        // - Stopped searching after the first match was removed.
+
+        // After:
+        // - The first occurrence of the value is correctly removed.
+        // - List integrity is preserved after removal.
+        // - No unnecessary traversal occurs after deletion.
+
+        Node? curr = _head;
+
+        while (curr is not null)
+        {
+            if (curr.Data == value)
+            {
+                if (curr == _head)
+                {
+                    RemoveHead();
+                }
+                else if (curr == _tail)
+                {
+                    RemoveTail();
+                }
+                else
+                {
+                    curr.Prev!.Next = curr.Next;
+                    curr.Next!.Prev = curr.Prev;
+                }
+
+                return;
+            }
+
+            curr = curr.Next;
+        }
     }
 
     /// <summary>
@@ -175,6 +217,7 @@ public class LinkedList : IEnumerable<int>
     public void Replace(int oldValue, int newValue)
     {
         // TODO Problem 4
+
     }
 
     /// <summary>
