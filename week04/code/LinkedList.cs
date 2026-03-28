@@ -274,7 +274,28 @@ public class LinkedList : IEnumerable<int>
     public IEnumerable Reverse()
     {
         // TODO Problem 5
-        yield return 0; // replace this line with the correct yield return statement(s)
+        // ======== CODE ======== //  (by Jéssica Seniw)
+        // Before:
+        // - Reverse iterator was not implemented.
+        // - The linked list could not be traversed backwards using foreach.
+        // - No logic existed to iterate starting from the tail.
+
+        // Fix:
+        // - Started iteration from the tail of the linked list.
+        // - Used yield return to provide values one at a time.
+        // - Traversed the list backwards using the Prev reference.
+
+        // After:
+        // - The linked list can now be iterated in reverse order.
+        // - Works correctly with foreach loops.
+        // - List structure remains unchanged during iteration.
+
+        var curr = _tail; // Start at the end for reverse iteration
+        while (curr is not null)
+        {
+            yield return curr.Data; // Provide each item to the caller
+            curr = curr.Prev; // Move backward in the linked list
+        }
     }
 
     public override string ToString()
