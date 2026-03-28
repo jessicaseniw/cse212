@@ -32,7 +32,37 @@ public class LinkedList : IEnumerable<int>
     /// </summary>
     public void InsertTail(int value)
     {
-        // TODO Problem 1
+        // TODO Problem 1// ======== CODE ======== //  (by Jéssica Seniw)
+        // Before:
+        // - InsertTail was not implemented.
+        // - The linked list could not add elements at the end.
+        // - Tail reference was not updated when inserting new elements.
+
+        // Fix:
+        // - Created a new node with the given value.
+        // - Handled the empty list case by initializing both head and tail.
+        // - Updated links and tail reference for non-empty lists.
+
+        // After:
+        // - New elements are correctly added to the end of the list.
+        // - Head and tail references are properly maintained.
+        // - The linked list behaves as expected for tail insertions.
+
+        Node newNode = new(value);
+
+        // If the list is empty, set both head and tail to the new node
+        if (_tail is null)
+        {
+            _head = newNode;
+            _tail = newNode;
+        }
+        // If the list is not empty, update the tail
+        else
+        {
+            newNode.Prev = _tail; // Connect new node to the previous tail
+            _tail.Next = newNode; // Connect previous tail to the new node
+            _tail = newNode; // Update tail to point to the new node
+        }
     }
 
 
@@ -65,6 +95,34 @@ public class LinkedList : IEnumerable<int>
     public void RemoveTail()
     {
         // TODO Problem 2
+        // ======== CODE ======== //  (by Jéssica Seniw)
+        // Before:
+        // - RemoveTail was not implemented.
+        // - The linked list could not remove elements from the end.
+        // - Tail reference was not properly updated when removing elements.
+
+        // Fix:
+        // - Handled the case where the list has one or zero elements.
+        // - Updated links to properly remove the last node.
+        // - Ensured the tail reference points to the correct node.
+
+        // After:
+        // - The last node is correctly removed from the list.
+        // - Head and tail references remain consistent.
+        // - The linked list behaves correctly after tail removal.
+
+        // If the list has only one item (or is empty), clear the list
+        if (_head == _tail)
+        {
+            _head = null;
+            _tail = null;
+        }
+        // If the list has more than one item, remove the tail
+        else if (_tail is not null)
+        {
+            _tail.Prev!.Next = null; // Disconnect the second-to-last node from the tail
+            _tail = _tail.Prev; // Update the tail to point to the previous node
+        }
     }
 
     /// <summary>
@@ -168,8 +226,10 @@ public class LinkedList : IEnumerable<int>
     }
 }
 
-public static class IntArrayExtensionMethods {
-    public static string AsString(this IEnumerable array) {
+public static class IntArrayExtensionMethods
+{
+    public static string AsString(this IEnumerable array)
+    {
         return "<IEnumerable>{" + string.Join(", ", array.Cast<int>()) + "}";
     }
 }
