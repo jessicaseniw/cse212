@@ -217,7 +217,33 @@ public class LinkedList : IEnumerable<int>
     public void Replace(int oldValue, int newValue)
     {
         // TODO Problem 4
+        // ======== CODE ======== //  (by Jéssica Seniw)
+        // Before:
+        // - Replace was not implemented.
+        // - The linked list could not update values in existing nodes.
+        // - No traversal logic existed to handle multiple matches.
 
+        // Fix:
+        // - Traversed the entire list starting from the head.
+        // - Replaced the data of every node that matched oldValue.
+        // - Continued searching after each replacement.
+
+        // After:
+        // - All occurrences of oldValue are replaced with newValue.
+        // - List structure remains unchanged.
+        // - The linked list behaves correctly for multiple replacements.
+
+        Node? curr = _head;
+
+        while (curr is not null)
+        {
+            if (curr.Data == oldValue)
+            {
+                curr.Data = newValue;
+            }
+
+            curr = curr.Next;
+        }
     }
 
     /// <summary>
