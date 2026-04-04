@@ -196,6 +196,37 @@ public static class Recursion
     public static void WildcardBinary(string pattern, List<string> results)
     {
         // TODO Start Problem 4
+        // ======== CODE ======== //  (by Jéssica Seniw)
+        // Before:
+        // - WildcardBinary was not implemented.
+        // - Patterns containing '*' could not be expanded.
+        // - Results list always remained empty.
+
+        // Fix:
+        // - Used recursion to locate the first wildcard '*'.
+        // - Replaced '*' with both '0' and '1' recursively.
+        // - Added completed binary strings (without '*') to results.
+
+        // After:
+        // - All possible binary strings matching the pattern are generated.
+        // - Supports multiple wildcards in the pattern.
+        // - Results list contains every valid binary combination.
+
+        int index = pattern.IndexOf('*');
+
+        // Base case: no wildcards left
+        if (index == -1)
+        {
+            results.Add(pattern);
+            return;
+        }
+
+        // Replace '*' with '0' and '1' and recurse
+        string withZero = pattern[..index] + "0" + pattern[(index + 1)..];
+        string withOne = pattern[..index] + "1" + pattern[(index + 1)..];
+
+        WildcardBinary(withZero, results);
+        WildcardBinary(withOne, results);
     }
 
     /// <summary>
