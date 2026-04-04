@@ -59,6 +59,35 @@ public static class Recursion
     public static void PermutationsChoose(List<string> results, string letters, int size, string word = "")
     {
         // TODO Start Problem 2
+        // ======== CODE ======== //  (by Jéssica Seniw)
+        // Before:
+        // - Function did not generate any permutations.
+        // - No recursive logic existed to build words of the desired size.
+        // - Results list remained empty.
+
+        // Fix:
+        // - Added a base case to add the word to results when its length equals size.
+        // - Used recursion to build permutations character by character.
+        // - Removed the chosen character from the available letters at each recursive call.
+
+        // After:
+        // - Function correctly generates all permutations of the given size.
+        // - Uses recursion without loops for permutation depth control.
+        // - Results list contains all valid permutations.
+
+        // Base case: when the word has reached the desired size
+        if (word.Length == size)
+        {
+            results.Add(word);
+            return;
+        }
+
+        // Recursive case: choose each letter and recurse
+        for (int i = 0; i < letters.Length; i++)
+        {
+            string remaining = letters.Remove(i, 1);
+            PermutationsChoose(results, remaining, size, word + letters[i]);
+        }
     }
 
     /// <summary>
