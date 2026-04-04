@@ -16,26 +16,26 @@ public static class Recursion
     {
         // TODO Start Problem 1
         // ======== CODE ======== //  (by Jéssica Seniw)
-    // Before:
-    // - Function always returned 0.
-    // - Recursive logic was not implemented.
-    // - Sum of squares was not calculated.
+        // Before:
+        // - Function always returned 0.
+        // - Recursive logic was not implemented.
+        // - Sum of squares was not calculated.
 
-    // Fix:
-    // - Added a base case to handle values where n <= 0.
-    // - Implemented recursion using n^2 + SumSquaresRecursive(n - 1).
-    // - Removed the need for any loops as required.
+        // Fix:
+        // - Added a base case to handle values where n <= 0.
+        // - Implemented recursion using n^2 + SumSquaresRecursive(n - 1).
+        // - Removed the need for any loops as required.
 
-    // After:
-    // - Function correctly calculates the sum 1^2 + 2^2 + ... + n^2.
-    // - Uses recursion with a clear base case.
-    // - Works for all valid values of n.
+        // After:
+        // - Function correctly calculates the sum 1^2 + 2^2 + ... + n^2.
+        // - Uses recursion with a clear base case.
+        // - Works for all valid values of n.
 
-    if (n <= 0)
-        return 0;
+        if (n <= 0)
+            return 0;
 
-    return (n * n) + SumSquaresRecursive(n - 1);
-}
+        return (n * n) + SumSquaresRecursive(n - 1);
+    }
 
     /// <summary>
     /// #############
@@ -145,9 +145,38 @@ public static class Recursion
             return 4;
 
         // TODO Start Problem 3
+        // ======== CODE ======== //  (by Jéssica Seniw)
+        // Before:
+        // - Function used pure recursion without memoization.
+        // - Repeated calculations caused exponential time complexity.
+        // - Performance degraded significantly for large values of s.
+
+        // Fix:
+        // - Initialized the memoization dictionary when null.
+        // - Checked if the result for the current step already exists.
+        // - Stored computed results to avoid redundant recursive calls.
+
+        // After:
+        // - Function efficiently computes the number of ways to climb stairs.
+        // - Time complexity is reduced from exponential to linear.
+        // - Works correctly for large values of s.
+
+        // Initialize memoization dictionary if needed
+        if (remember == null)
+            remember = new Dictionary<int, decimal>();
+
+        // Return cached result if it exists
+        if (remember.ContainsKey(s))
+            return remember[s];
 
         // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
+        // Recursive computation with memoization
+        decimal ways =
+            CountWaysToClimb(s - 1, remember) +
+            CountWaysToClimb(s - 2, remember) +
+            CountWaysToClimb(s - 3, remember);
+
+        remember[s] = ways;
         return ways;
     }
 
@@ -177,10 +206,11 @@ public static class Recursion
     {
         // If this is the first time running the function, then we need
         // to initialize the currPath list.
-        if (currPath == null) {
+        if (currPath == null)
+        {
             currPath = new List<ValueTuple<int, int>>();
         }
-        
+
         // currPath.Add((1,2)); // Use this syntax to add to the current path
 
         // TODO Start Problem 5
