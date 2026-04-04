@@ -15,8 +15,27 @@ public static class Recursion
     public static int SumSquaresRecursive(int n)
     {
         // TODO Start Problem 1
+        // ======== CODE ======== //  (by Jéssica Seniw)
+    // Before:
+    // - Function always returned 0.
+    // - Recursive logic was not implemented.
+    // - Sum of squares was not calculated.
+
+    // Fix:
+    // - Added a base case to handle values where n <= 0.
+    // - Implemented recursion using n^2 + SumSquaresRecursive(n - 1).
+    // - Removed the need for any loops as required.
+
+    // After:
+    // - Function correctly calculates the sum 1^2 + 2^2 + ... + n^2.
+    // - Uses recursion with a clear base case.
+    // - Works for all valid values of n.
+
+    if (n <= 0)
         return 0;
-    }
+
+    return (n * n) + SumSquaresRecursive(n - 1);
+}
 
     /// <summary>
     /// #############
